@@ -1,7 +1,14 @@
-import { serve } from "https://deno.land/std@0.83.0/http/server.ts";
+import { Application } from "https://deno.land/x/oak/mod.ts";
+import pRoutes from "./routes/posts.ts";
 
-const server = serve({ port: 8000 });
-console.log("http://localhost:8000/");
-for await (const req of server) {
-  req.respond({ body: "Hello World\n" });
-}
+const app = new Application();
+
+app.use((ctx, next) => {
+  ctx.response.body = "Hello World!!!";
+  next();
+});
+
+app.use(pRoutes.routes());
+app.use(pRoutes.allowedMethods());
+
+await app.listen({ port: 8000 });
