@@ -1,1 +1,0 @@
-This is a text for creating a text file with deno.
